@@ -11,3 +11,5 @@ crash.*.log
 .env.*
 *.pem
 *.key
+*.png
+*.tfvars
