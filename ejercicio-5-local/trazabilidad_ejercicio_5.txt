@@ -1,0 +1,133 @@
+TRAZABILIDAD - EJERCICIO 5: MODULO LOCAL REUTILIZABLE
+=====================================================
+
+Fecha: 18/11/2026
+Proyecto: C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\curso-iac\ejercicio-5-local
+Guia: C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\Guia_Ejercicio_5_IaC_IA_Modalidad_Local_BRR.docx
+Este documento: trazabilidad_ejercicio_5.txt
+
+1. ALCANCE Y ESTADO
+-------------------
+Se preparó una copia de trabajo aislada en una carpeta hija del repositorio,
+sin cambiar los archivos existentes en la raíz ni otros proyectos/cambios.
+El proyecto contiene el módulo, dos instancias, escenarios, README y workflow.
+No se instaló software, no se ejecutó apply, no se publicó una rama ni se
+afirma que GitHub Actions se haya ejecutado.
+
+La guía describe la modalidad local como edición con VS Code y validación de
+OpenTofu en GitHub Actions; el runner remoto instala OpenTofu temporalmente.
+En este equipo los comandos tofu y terraform no están disponibles. Por tanto,
+el formato, validate y los planes aún no tienen resultado de ejecución local.
+
+2. MATRIZ DE REQUISITOS Y EVIDENCIA
+-----------------------------------
+ID: E5-01
+Requisito: Modulo local con recurso terraform_data ficticio.
+Implementación:
+  modulo_ficha/main.tf
+Evidencia: El input del recurso contiene nombre y entorno; no hay proveedor
+cloud, VM, red ni aplicación real.
+
+ID: E5-02
+Requisito: Variables obligatorias y validadas en el módulo.
+Implementación:
+  modulo_ficha/variables.tf
+Evidencia: nombre requiere prefijo portal-; entorno acepta desarrollo,
+pruebas o integracion. No tienen valores por defecto.
+
+ID: E5-03
+Requisito: Salida del módulo y dos usos desde la raíz.
+Implementación:
+  modulo_ficha/outputs.tf
+  main.tf
+  outputs.tf
+Evidencia: module.portal y module.ayuda usan source = "./modulo_ficha",
+entregan nombre y entorno y exponen module.portal.resumen y
+module.ayuda.resumen.
+
+ID: E5-04
+Requisito: Plan predeterminado e integración.
+Implementación:
+  variables.tf
+  escenario-integracion.tfvars
+Evidencia prevista (no ejecutada):
+  Predeterminado: portal-demo / pruebas y portal-ayuda / pruebas.
+  Integración: portal-interno / integracion y portal-ayuda / integracion.
+Cada plan debería mostrar dos direcciones de recurso ficticio y 2 to add,
+0 to change, 0 to destroy. Son predicciones hasta que Actions las confirme.
+Nota: el archivo escenario-integracion.tfvars existente en la raíz del
+repositorio solo definía entorno. En esta copia aislada se añadió
+nombre_aplicacion = "portal-interno" para representar el escenario estándar
+de la guía; portal-equipo corresponde al reto opcional E2.
+
+ID: E5-05
+Requisito: Comprobar formato recursivo, validar, planificar y guardar evidencia.
+Implementación:
+  ..\.github\workflows\validacion.yml
+Evidencia: workflow de la raíz ajustado para ejecutar en ejercicio-5-local
+y usar tofu fmt -check -diff -recursive. OpenTofu se configura solo en el
+runner remoto. La carpeta .github dentro del proyecto no contiene workflows,
+porque GitHub no ejecutaría workflows desde esa ruta anidada.
+
+ID: E5-06
+Requisito: Explicar arquitectura, escenarios y límites para operaciones (punto 10).
+Implementación:
+  README.md, sección "Arquitectura ficticia".
+Evidencia: documenta necesidad, módulo reutilizado, entradas, escenarios,
+evidencias previstas y ausencia de apply/infraestructura real.
+
+3. REVISIÓN DEL PROMPT 01
+-------------------------
+Prompt proporcionado por el usuario: auditoría de OpenTofu sobre source,
+entradas, module.portal.resumen, predicción de planes, omisión de nombre y
+diferencia entre formato y validación, sin modificar ni ejecutar apply.
+
+Respuesta de revisión basada en los archivos creados:
+- source = "./modulo_ficha" referencia un módulo local en la misma carpeta.
+- Cada instancia debe entregar nombre y entorno, porque las variables del
+  módulo no tienen default. El módulo valida formato del nombre y valores
+  permitidos del entorno.
+- module.portal.resumen devuelve terraform_data.ficha.input de la instancia
+  portal; la raíz agrega ese objeto y el de ayuda en output "resumen".
+- Predicción predeterminada: portal-demo/pruebas y portal-ayuda/pruebas.
+- Predicción de integración: portal-interno/integracion y
+  portal-ayuda/integracion.
+- Omitir nombre en module.ayuda produce un error de argumento requerido,
+  previsiblemente "Missing required argument"; no es un error de formato.
+- Formato se refiere a sintaxis/estilo HCL (tofu fmt); validate comprueba
+  configuración y argumentos del módulo. Ambos se comprueban antes de aplicar.
+- No se afirma que haya recursos creados: terraform_data y los planes son
+  ficticios/previsionales; no se ejecutó apply.
+
+4. PUNTO 9 - ENSAYO Y RECUPERACIÓN
+----------------------------------
+En la rama arquitectura-ejercicio-5:
+1) En main.tf, dentro de module "ayuda", elimina solo
+   nombre = "portal-ayuda".
+2) Guarda, revisa el diff y publica el commit de prueba indicado en la guía.
+3) En Actions anota el primer error, el paso y el enlace de ejecución.
+4) Restaura inmediatamente nombre = "portal-ayuda", publica la corrección y
+   verifica que la siguiente ejecución queda verde.
+5) Conserva los enlaces de ambos runs. No desactives la validación ni ejecutes
+   apply. El archivo principal de esta entrega está intacto y correcto.
+
+5. VALIDACIÓN Y RUTAS FINALES
+-----------------------------
+No se instalaron dependencias ni herramientas. tofu y terraform no están
+disponibles localmente; fmt, init, validate y plan se comprueban en el runner
+remoto de Actions. Registra aquí el mensaje del fallo temporal, sus pasos y
+los enlaces de las ejecuciones cuando estén disponibles.
+
+Contenido del proyecto:
+  main.tf
+  variables.tf
+  outputs.tf
+  escenario-integracion.tfvars
+  modulo_ficha\main.tf
+  modulo_ficha\variables.tf
+  modulo_ficha\outputs.tf
+  ..\.github\workflows\validacion.yml (workflow de la raíz del repositorio)
+  README.md
+  trazabilidad_ejercicio_5.txt
+
+FIN DE LA TRAZABILIDAD
