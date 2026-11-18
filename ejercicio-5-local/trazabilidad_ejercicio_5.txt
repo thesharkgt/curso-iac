@@ -11,8 +11,9 @@ Este documento: trazabilidad_ejercicio_5.txt
 Se preparó una copia de trabajo aislada en una carpeta hija del repositorio,
 sin cambiar los archivos existentes en la raíz ni otros proyectos/cambios.
 El proyecto contiene el módulo, dos instancias, escenarios, README y workflow.
-No se instaló software, no se ejecutó apply, no se publicó una rama ni se
-afirma que GitHub Actions se haya ejecutado.
+No se instaló software ni se ejecutó apply. Se publicó la rama
+arquitectura-ejercicio-5 y GitHub Actions se ejecutó para el baseline y el
+ensayo fallido. La corrección está restaurada localmente, pendiente de publicar.
 
 La guía describe la modalidad local como edición con VS Code y validación de
 OpenTofu en GitHub Actions; el runner remoto instala OpenTofu temporalmente.
@@ -101,22 +102,29 @@ Respuesta de revisión basada en los archivos creados:
 
 4. PUNTO 9 - ENSAYO Y RECUPERACIÓN
 ----------------------------------
-En la rama arquitectura-ejercicio-5:
-1) En main.tf, dentro de module "ayuda", elimina solo
-   nombre = "portal-ayuda".
-2) Guarda, revisa el diff y publica el commit de prueba indicado en la guía.
-3) En Actions anota el primer error, el paso y el enlace de ejecución.
-4) Restaura inmediatamente nombre = "portal-ayuda", publica la corrección y
-   verifica que la siguiente ejecución queda verde.
-5) Conserva los enlaces de ambos runs. No desactives la validación ni ejecutes
-   apply. El archivo principal de esta entrega está intacto y correcto.
+En la rama arquitectura-ejercicio-5 se quitó temporalmente nombre del bloque
+module "ayuda", se publicó el commit y después se restauró el argumento.
+La ejecución de referencia terminó verde:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44293713887
+
+Resultado comprobado del ensayo:
+  Commit: d0e1c3c905aa4f2e7c95458288c9ac28c145dbad
+  Ejecución: https://github.com/thesharkgt/curso-iac/actions/runs/44293845253
+  Primer paso fallido: Validar (Comprobar formato fue success).
+  Mensaje: Error: Missing required argument
+  Archivo/línea: main.tf, línea 7, module "ayuda".
+  Detalle: The argument "nombre" is required, but no definition was found.
+  Los planes se omitieron al fallar validate; el resumen y el artefacto se
+  publicaron. No se desactivó la validación ni se ejecutó apply.
+
+La corrección local restauró nombre = "portal-ayuda". Su publicación y
+ejecución verde están pendientes.
 
 5. VALIDACIÓN Y RUTAS FINALES
 -----------------------------
 No se instalaron dependencias ni herramientas. tofu y terraform no están
-disponibles localmente; fmt, init, validate y plan se comprueban en el runner
-remoto de Actions. Registra aquí el mensaje del fallo temporal, sus pasos y
-los enlaces de las ejecuciones cuando estén disponibles.
+disponibles localmente; fmt, init, validate y plan se comprobaron en el runner
+remoto de Actions. Los resultados y enlaces del punto 9 constan arriba.
 
 Contenido del proyecto:
   main.tf
