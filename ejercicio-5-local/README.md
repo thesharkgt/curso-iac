@@ -14,7 +14,7 @@ Proyecto autocontenido del ejercicio 5. Usa `terraform_data` para representar do
 
 No se requiere instalar OpenTofu en este equipo para conservar o revisar el proyecto. El workflow configura OpenTofu en un runner temporal de GitHub Actions; para obtener esos resultados hay que publicar el proyecto en un repositorio habilitado para Actions. No se ha ejecutado `tofu init`, `tofu plan` ni `tofu apply` localmente. `apply` no forma parte de este ejercicio.
 
-Los planes previstos contienen dos recursos `terraform_data` por escenario (2 to add, 0 to change, 0 to destroy). Son predicciones basadas en los archivos; hasta ejecutar el workflow no son resultados comprobados.
+La ejecución verde [de referencia](https://github.com/thesharkgt/curso-iac/actions/runs/44293713887) confirmó ambos escenarios: dos recursos `terraform_data` por plan (2 to add, 0 to change, 0 to destroy), sin cambios ni destrucciones. Por defecto: `portal-demo/pruebas` y `portal-ayuda/pruebas`; integración: `portal-interno/integracion` y `portal-ayuda/integracion`. Son resultados de planes; no se ejecutó `apply`.
 
 ## Arquitectura ficticia
 

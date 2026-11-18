@@ -12,8 +12,8 @@ Se preparó una copia de trabajo aislada en una carpeta hija del repositorio,
 sin cambiar los archivos existentes en la raíz ni otros proyectos/cambios.
 El proyecto contiene el módulo, dos instancias, escenarios, README y workflow.
 No se instaló software ni se ejecutó apply. Se publicó la rama
-arquitectura-ejercicio-5 y GitHub Actions se ejecutó para el baseline y el
-ensayo fallido. La corrección está restaurada localmente, pendiente de publicar.
+arquitectura-ejercicio-5 y GitHub Actions se ejecutó para el baseline, el
+ensayo fallido y la corrección, que terminó verde.
 
 La guía describe la modalidad local como edición con VS Code y validación de
 OpenTofu en GitHub Actions; el runner remoto instala OpenTofu temporalmente.
@@ -51,11 +51,12 @@ Requisito: Plan predeterminado e integración.
 Implementación:
   variables.tf
   escenario-integracion.tfvars
-Evidencia prevista (no ejecutada):
+Predicción comprobada en la ejecución de referencia
+  https://github.com/thesharkgt/curso-iac/actions/runs/44293713887
   Predeterminado: portal-demo / pruebas y portal-ayuda / pruebas.
   Integración: portal-interno / integracion y portal-ayuda / integracion.
-Cada plan debería mostrar dos direcciones de recurso ficticio y 2 to add,
-0 to change, 0 to destroy. Son predicciones hasta que Actions las confirme.
+Ambos planes mostraron las dos direcciones de recurso ficticio y 2 to add,
+0 to change, 0 to destroy. No se ejecutó apply.
 Nota: el archivo escenario-integracion.tfvars existente en la raíz del
 repositorio solo definía entorno. En esta copia aislada se añadió
 nombre_aplicacion = "portal-interno" para representar el escenario estándar
@@ -69,6 +70,8 @@ Evidencia: workflow de la raíz ajustado para ejecutar en ejercicio-5-local
 y usar tofu fmt -check -diff -recursive. OpenTofu se configura solo en el
 runner remoto. La carpeta .github dentro del proyecto no contiene workflows,
 porque GitHub no ejecutaría workflows desde esa ruta anidada.
+Formato, validación, los dos planes y publicación del artefacto finalizaron
+correctamente en la ejecución de referencia enlazada arriba.
 
 ID: E5-06
 Requisito: Explicar arquitectura, escenarios y límites para operaciones (punto 10).
@@ -117,8 +120,10 @@ Resultado comprobado del ensayo:
   Los planes se omitieron al fallar validate; el resumen y el artefacto se
   publicaron. No se desactivó la validación ni se ejecutó apply.
 
-La corrección local restauró nombre = "portal-ayuda". Su publicación y
-ejecución verde están pendientes.
+La corrección restauró nombre = "portal-ayuda" y pasó formato, validate y
+ambos planes:
+  Commit: 8af2eac4d2cb496d97ee75b76cddc4c5a4d8d92f
+  Ejecución verde: https://github.com/thesharkgt/curso-iac/actions/runs/44294024748
 
 5. VALIDACIÓN Y RUTAS FINALES
 -----------------------------
