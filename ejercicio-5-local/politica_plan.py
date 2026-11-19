@@ -46,6 +46,7 @@ if set(direcciones) != ESPERADAS or len(direcciones) != 2:
 fichas = {}
 for cambio in cambios:
     direccion = cambio.get("address")
+    print("DEBUG DIRECCION: " + str(direccion))
 
     if cambio.get("mode") != "managed":
         rechazar("solo se permiten recursos administrados")
