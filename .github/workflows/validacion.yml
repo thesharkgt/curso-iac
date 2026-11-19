@@ -35,7 +35,9 @@ jobs:
         run: tofu plan -input=false -no-color -out=plan-predeterminado.tfplan
       - name: Politica del plan predeterminado
         id: politica_predeterminado
-        run: tofu show -json -plan=plan-predeterminado.tfplan | python3 politica_plan.py
+        run: |
+          set -o pipefail
+          tofu show -json -plan=plan-predeterminado.tfplan | python3 politica_plan.py | tee politica-predeterminada.txt
       - name: Plan del escenario integracion
         id: plan_integracion
         run: >-
@@ -44,7 +46,9 @@ jobs:
           -out=plan-integracion.tfplan
       - name: Politica del plan de integracion
         id: politica_integracion
-        run: tofu show -json -plan=plan-integracion.tfplan | python3 politica_plan.py
+        run: |
+          set -o pipefail
+          tofu show -json -plan=plan-integracion.tfplan | python3 politica_plan.py | tee politica-integracion.txt
       - name: Resumir comprobaciones
         if: ${{ always() }}
         run: |
@@ -61,6 +65,8 @@ jobs:
             echo "| Política predeterminada | ${{ steps.politica_predeterminado.outcome }} |"
             echo "| Plan de integración | ${{ steps.plan_integracion.outcome }} |"
             echo "| Política de integración | ${{ steps.politica_integracion.outcome }} |"
+            if [ -f politica-predeterminada.txt ]; then echo "Política predeterminada: $(cat politica-predeterminada.txt)"; fi
+            if [ -f politica-integracion.txt ]; then echo "Política de integración: $(cat politica-integracion.txt)"; fi
           } | tee evidencia.txt >> "$GITHUB_STEP_SUMMARY"
       - name: Publicar evidencia
         if: ${{ always() }}
