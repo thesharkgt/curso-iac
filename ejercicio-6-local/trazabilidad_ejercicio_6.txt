@@ -53,7 +53,10 @@ Ejecuciones reales:
   Commit: a65bde53d50448814fc7c1a75d937f1d7b17b07c
   Resultado: roja, tras pasar formato, validación y plan predeterminado.
   Mensaje esperado: POLÍTICA RECHAZADA: portal y ayuda deben pertenecer al mismo entorno
-- Ejecución verde corregida: PENDIENTE
+- Ejecución verde corregida:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44511089296
+  Commit: 1056ce3c3d3c01f44888e2cc79e000ab620ab0c8
+  Resultado: verde; ambos planes y ambas políticas aprobados.
 - Pull request: PENDIENTE
 
 Estos enlaces deben copiarse después de publicar la rama y abrir GitHub Actions.
