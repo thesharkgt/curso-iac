@@ -43,8 +43,11 @@ y ejecuta únicamente en GitHub Actions.
 
 4. EJECUCIONES Y ENLACES
 ------------------------
-Pendiente de completar con las ejecuciones reales:
-- Ejecución verde inicial: PENDIENTE
+Ejecuciones reales:
+- Ejecución verde inicial:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44510594044
+  Commit: 360163e6fbc13883be62d96edf64799a44ce63bb
+  Resultado: verde.
 - Ejecución roja con entornos distintos: PENDIENTE
 - Ejecución verde corregida: PENDIENTE
 - Pull request: PENDIENTE
