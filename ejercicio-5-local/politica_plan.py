@@ -46,7 +46,6 @@ if set(direcciones) != ESPERADAS or len(direcciones) != 2:
 fichas = {}
 for cambio in cambios:
     direccion = cambio.get("address")
-    print("DEBUG DIRECCION: " + str(direccion))
 
     if cambio.get("mode") != "managed":
         rechazar("solo se permiten recursos administrados")
@@ -71,10 +70,6 @@ for cambio in cambios:
     entorno = entrada.get("entorno")
     if not isinstance(nombre, str) or not isinstance(entorno, str):
         rechazar("nombre y entorno deben ser cadenas en " + direccion)
-
-    unknown = change.get("after_unknown")
-    if contiene_marcador(unknown):
-        rechazar("las entradas de " + direccion + " no pueden ser desconocidas")
 
     sensitive = change.get("after_sensitive")
     if contiene_marcador(sensitive):
