@@ -48,7 +48,11 @@ Ejecuciones reales:
   https://github.com/thesharkgt/curso-iac/actions/runs/44510594044
   Commit: 360163e6fbc13883be62d96edf64799a44ce63bb
   Resultado: verde.
-- Ejecución roja con entornos distintos: PENDIENTE
+- Ejecución roja con entornos distintos:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44510780191
+  Commit: a65bde53d50448814fc7c1a75d937f1d7b17b07c
+  Resultado: roja, tras pasar formato, validación y plan predeterminado.
+  Mensaje esperado: POLÍTICA RECHAZADA: portal y ayuda deben pertenecer al mismo entorno
 - Ejecución verde corregida: PENDIENTE
 - Pull request: PENDIENTE
 
