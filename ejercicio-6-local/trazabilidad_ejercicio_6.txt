@@ -1,0 +1,63 @@
+TRAZABILIDAD - EJERCICIO 6: POLITICA SOBRE EL PLAN
+==================================================
+
+Rama: politica-ejercicio-6
+Proyecto: ejercicio-5-local
+Guia: Guia_Ejercicio_6_IaC_IA_BRR.docx
+Documento: trazabilidad_ejercicio_6.txt
+
+1. OBJETIVO
+-----------
+Se amplía el laboratorio del ejercicio 5 con una política Python que inspecciona
+el JSON generado por `tofu show` y rechaza planes que no cumplan las reglas
+didácticas del laboratorio.
+
+2. IMPLEMENTACION
+-----------------
+Archivo de política: ejercicio-5-local/politica_plan.py
+
+La política valida:
+- exactamente dos resource_changes;
+- direcciones module.portal.terraform_data.ficha y
+  module.ayuda.terraform_data.ficha;
+- mode managed, type terraform_data y actions ["create"];
+- únicamente nombre y entorno como cadenas;
+- ausencia de marcas sensibles;
+- nombre de portal con prefijo portal-;
+- ayuda llamada exactamente portal-ayuda;
+- ambos entornos iguales y pertenecientes a desarrollo, pruebas o integracion.
+
+El workflow se encuentra en .github/workflows/validacion.yml. Ejecuta dos planes
+temporales con extensión .tfplan, convierte cada plan a JSON y lo envía por
+entrada estándar a Python. Publica el resumen en evidencia.txt y no ejecuta apply.
+
+3. PREDICCION DEL ENSAYO DE GOBIERNO
+------------------------------------
+Predicción antes del fallo:
+- tofu validate debe admitir entorno = "desarrollo" en module "ayuda";
+- tofu plan debe calcular dos fichas;
+- la política predeterminada debe rechazar el plan por entornos distintos.
+
+Estado local previo al ensayo: sin ejecutar en este equipo; OpenTofu se valida
+y ejecuta únicamente en GitHub Actions.
+
+4. EJECUCIONES Y ENLACES
+------------------------
+Pendiente de completar con las ejecuciones reales:
+- Ejecución verde inicial: PENDIENTE
+- Ejecución roja con entornos distintos: PENDIENTE
+- Ejecución verde corregida: PENDIENTE
+- Pull request: PENDIENTE
+
+Estos enlaces deben copiarse después de publicar la rama y abrir GitHub Actions.
+
+5. OBSERVACION DE IA Y LIMITACION
+---------------------------------
+La política contrasta el plan JSON con reglas conocidas y detecta la diferencia
+entre dos entornos. No cubre todos los controles posibles de producción, como
+costes, permisos, secretos, todos los tipos de recursos o cambios entre ramas.
+
+La revisión humana, la protección de rama y los permisos independientes siguen
+siendo necesarios antes de considerar este control como gobernanza real.
+
+FIN DE LA TRAZABILIDAD

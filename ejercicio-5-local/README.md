@@ -24,3 +24,11 @@ La ejecución verde [de referencia](https://github.com/thesharkgt/curso-iac/acti
 - Escenarios: valores predeterminados de pruebas y variante de integración en `escenario-integracion.tfvars`.
 - Evidencias: GitHub Actions está configurado para revisar formato, validar y generar planes y un artefacto de evidencia.
 - Limitación: no se ejecuta `apply`; `terraform_data` es una representación ficticia, no una VM, red ni aplicación.
+
+## Política del laboratorio
+
+La política didáctica permite exactamente las fichas `module.portal.terraform_data.ficha` y `module.ayuda.terraform_data.ficha`, con el tipo `terraform_data`, acción `create`, nombres `portal-*`, ayuda llamada `portal-ayuda` y el mismo entorno admitido (`desarrollo`, `pruebas` o `integracion`).
+
+La validación comprueba que la configuración HCL y sus argumentos sean coherentes; la política revisa los valores calculados por el plan JSON para detectar incumplimientos de gobierno que la sintaxis no detecta. Los resultados aparecen en las etapas de política y en el resumen de GitHub Actions.
+
+Este ejemplo no ejecuta `tofu apply`, no despliega infraestructura ni demuestra un sistema de gobierno de producción. La política es editable en una rama y requiere revisión humana, permisos estrictos y controles adicionales en producción.
