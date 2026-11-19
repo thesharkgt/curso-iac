@@ -14,6 +14,16 @@ def rechazar(motivo):
     raise SystemExit(1)
 
 
+def contiene_marcador(valor):
+    if valor is True:
+        return True
+    if isinstance(valor, dict):
+        return any(contiene_marcador(elemento) for elemento in valor.values())
+    if isinstance(valor, list):
+        return any(contiene_marcador(elemento) for elemento in valor)
+    return False
+
+
 try:
     plan = json.load(sys.stdin)
 except (json.JSONDecodeError, UnicodeDecodeError):
@@ -62,11 +72,11 @@ for cambio in cambios:
         rechazar("nombre y entorno deben ser cadenas en " + direccion)
 
     unknown = change.get("after_unknown")
-    if unknown is True or (isinstance(unknown, dict) and any(unknown.values())):
+    if contiene_marcador(unknown):
         rechazar("las entradas de " + direccion + " no pueden ser desconocidas")
 
     sensitive = change.get("after_sensitive")
-    if sensitive is True or (isinstance(sensitive, dict) and any(sensitive.values())):
+    if contiene_marcador(sensitive):
         rechazar("las entradas de " + direccion + " no pueden estar marcadas como sensibles")
 
     fichas[direccion] = (nombre, entorno)
