@@ -21,6 +21,16 @@ La comprobación de marcas desconocidas y sensibles recorre mapas y listas anida
 
 Si se asigna `equipo-lab` a integración, OpenTofu todavía puede validar y calcular el plan: el texto es una cadena válida. La política debe rechazarlo con `POLÍTICA RECHAZADA: responsable no aprobado para integracion`. Al restaurar `equipo-integracion`, ambos escenarios vuelven a aprobarse.
 
+## Comprobaciones observadas
+
+- [Primera ejecución aprobada](https://github.com/thesharkgt/curso-iac/actions/runs/44729661219): formato, validación, los dos planes y las políticas pasaron.
+- [Prueba del equipo equivocado](https://github.com/thesharkgt/curso-iac/actions/runs/44729777199): el formato, la validación y ambos planes pasaron; la política de integración rechazó `equipo-lab` con el mensaje esperado.
+- [Corrección aprobada](https://github.com/thesharkgt/curso-iac/actions/runs/44729835861): ambos planes y ambas políticas volvieron a pasar.
+
+La revisión con IA señaló que `tofu validate` comprueba la forma de los datos, pero no si el equipo tiene permiso para ese entorno. Se comprobó publicando el valor incorrecto: el plan de integración se creó con dos fichas, y el rechazo apareció en la política, no en la validación ni en el plan.
+
+Decisión de diseño: una tabla explícita relaciona cada entorno permitido con su equipo responsable. Así se puede revisar la regla de forma sencilla y se evita usar un equipo por defecto para todos los entornos. Una recomendación para un sistema real sería proteger la política con revisión independiente y permisos de rama; no se implementa en este laboratorio.
+
 ## Validación y límites
 
 El workflow `../.github/workflows/validacion-ejercicio-8.yml` comprueba formato, configuración, los dos planes y sus políticas en GitHub Actions. El laboratorio no ejecuta `tofu apply`, no despliega servicios y no crea etiquetas reales. Una política editable dentro de la misma rama sirve para aprender, pero no es por sí sola un control independiente de producción.

@@ -68,10 +68,25 @@ Comprobaciones ejecutadas sobre politica_plan.py:
 
 La guia solicita tres ejecuciones de GitHub Actions (aprobada, rechazo
 deliberado, correccion), enlaces a ellas y un pull request en un repositorio
-personal. Esas ejecuciones y el pull request quedan pendientes de la
-publicacion de la rama nueva. OpenTofu/Terraform no esta instalado en PATH,
-por lo que no se han ejecutado tofu fmt, init, validate ni plan localmente.
-No se inventan enlaces ni resultados de Actions.
+personal. Se publicaron tres commits en la rama personal y las tres
+ejecuciones reales del workflow de este ejercicio fueron:
+  Inicial aprobada:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729661219
+    formato, validacion, ambos planes y ambas politicas pasaron.
+  Responsable de integracion incorrecto:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729777199
+    formato, validacion y ambos planes pasaron; la politica de integracion
+    rechazo el responsable con el mensaje esperado.
+  Correccion:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729835861
+    formato, validacion, ambos planes y ambas politicas pasaron.
+
+En las dos ejecuciones aprobadas, cada plan mostro dos recursos a crear y
+cero cambios o eliminaciones. La ejecucion de rechazo mostro que el error
+estaba en la politica de integracion y no en tofu validate ni en el plan.
+OpenTofu/Terraform no esta instalado en PATH, por lo que las comprobaciones
+locales se limitaron a Python; los comandos de OpenTofu se ejecutaron en
+GitHub Actions.
 
 Resultado funcional esperado al ejecutar el workflow:
   - Con el responsable correcto, las dos politicas deben aprobar.
