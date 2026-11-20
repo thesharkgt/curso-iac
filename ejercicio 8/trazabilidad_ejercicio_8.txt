@@ -68,8 +68,8 @@ Comprobaciones ejecutadas sobre politica_plan.py:
 
 La guia solicita tres ejecuciones de GitHub Actions (aprobada, rechazo
 deliberado, correccion), enlaces a ellas y un pull request en un repositorio
-personal. Se publicaron tres commits en la rama personal y las tres
-ejecuciones reales del workflow de este ejercicio fueron:
+personal. Se publicaron cuatro commits en la rama personal y las tres
+ejecuciones principales del workflow de este ejercicio fueron:
   Inicial aprobada:
     https://github.com/thesharkgt/curso-iac/actions/runs/44729661219
     formato, validacion, ambos planes y ambas politicas pasaron.
@@ -80,6 +80,10 @@ ejecuciones reales del workflow de este ejercicio fueron:
   Correccion:
     https://github.com/thesharkgt/curso-iac/actions/runs/44729835861
     formato, validacion, ambos planes y ambas politicas pasaron.
+Ejecucion adicional al documentar README y evidencia:
+  Actualizacion de README y trazabilidad:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44730151303
+    formato, validacion, ambos planes y ambas politicas pasaron.
 
 En las dos ejecuciones aprobadas, cada plan mostro dos recursos a crear y
 cero cambios o eliminaciones. La ejecucion de rechazo mostro que el error
@@ -88,11 +92,25 @@ OpenTofu/Terraform no esta instalado en PATH, por lo que las comprobaciones
 locales se limitaron a Python; los comandos de OpenTofu se ejecutaron en
 GitHub Actions.
 
-Resultado funcional esperado al ejecutar el workflow:
-  - Con el responsable correcto, las dos politicas deben aprobar.
-  - Con equipo-lab asignado a integracion, formato, validacion y plan deben
-    pasar, y la politica debe rechazar con el mensaje indicado arriba.
-  - Al restaurar equipo-integracion, ambos escenarios deben quedar aprobados.
+Commits publicados:
+  b020f24 - implementacion inicial; validacion verde.
+  c0a618e - prueba temporal con equipo-lab; politica de integracion roja.
+  94b937c - correccion con equipo-integracion; validacion verde.
+  e0f0c21 - README, decision de diseno y enlaces de evidencia.
+
+4. ENTREGA EN GITHUB
+--------------------
+Rama:
+  https://github.com/thesharkgt/curso-iac/tree/taller-final-ejercicio-8
+Pull request:
+  Pendiente de crear hacia catalogo-ejercicio-7 en modo borrador, sin fusionar.
+
+5. LIMITES
+----------
+El mapa etiquetas se guarda en terraform_data; no son etiquetas reales de
+servicios cloud. No se ejecuta tofu apply ni se despliega infraestructura.
+La politica editable en la misma rama es didactica y no equivale a una
+aprobacion independiente de produccion.
 
 4. LIMITES
 ----------
