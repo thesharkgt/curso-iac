@@ -1,0 +1,125 @@
+TRAZABILIDAD - EJERCICIO 8: ETIQUETAS Y RESPONSABLES POR ENTORNO
+================================================================
+
+Guia:
+  C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\Guia_Ejercicio_8_IaC_IA_BRR.docx
+Carpeta de entrega:
+  C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\curso-iac\ejercicio 8
+
+1. ALCANCE Y REFERENCIAS
+------------------------
+Se leyo la guia completa en Word. El ejercicio continua el catalogo del
+ejercicio 7 y mantiene las fichas portal y ayuda. Se anaden etiquetas
+didacticas de proyecto, entorno y responsable y una regla que valida el
+responsable esperado por escenario.
+
+Skill instalada mas adecuada:
+  python-fact-grounded-coding, para implementar y comprobar la politica Python.
+No hay una skill instalada especifica de OpenTofu/Terraform o IaC.
+
+El navegador tiene iniciada la cuenta personal thesharkgt. El remoto origin
+es https://github.com/thesharkgt/curso-iac.git y GitHub confirma que esa
+cuenta ya contiene el ejercicio 7 en la rama catalogo-ejercicio-7. Se
+continuara en ese repositorio y no se creara un repositorio duplicado.
+La URL b-regina/iac-ia-laboratorio-demo corresponde a la guia de consulta del
+curso; no se modificara.
+La rama local de partida observada es catalogo-ejercicio-7. La entrega del
+ejercicio 8 se preparara en una rama nueva taller-final-ejercicio-8.
+
+2. ARCHIVOS CREADOS
+-------------------
+  variables.tf
+    Anade la variable raiz responsable, predeterminada a equipo-lab.
+  escenario-integracion.tfvars
+    Define portal-interno, integracion y equipo-integracion.
+  main.tf
+    Pasa responsable a cada instancia del modulo, sin cambiar el catalogo.
+  modulo_ficha/variables.tf
+    Declara la entrada responsable del modulo.
+  modulo_ficha/main.tf
+    Incluye proyecto, entorno y responsable en input.etiquetas.
+  politica_plan.py
+    Conserva las reglas previas y valida claves, etiquetas y equipo por
+    entorno; examina marcas desconocidas y sensibles anidadas.
+  outputs.tf y modulo_ficha/outputs.tf
+    Copias sin cambios funcionales para mantener el proyecto independiente.
+  README.md
+    Explica el recorrido del dato, los escenarios y las limitaciones.
+  ../.github/workflows/validacion-ejercicio-8.yml
+    Comprueba formato, validacion, dos planes, dos politicas y publica resumen
+    como artefacto con retencion de siete dias.
+
+3. VALIDACION REALIZADA Y RESULTADOS
+------------------------------------
+Predeterminado:
+  portal-demo y portal-ayuda; entorno pruebas; responsable equipo-lab.
+Integracion:
+  portal-interno y portal-ayuda; entorno integracion;
+  responsable equipo-integracion.
+
+Comprobaciones ejecutadas sobre politica_plan.py:
+  - Pylance comprobó la sintaxis con Python 3.15: sin errores.
+  - Siete casos controlados pasaron: predeterminado aprobado, integracion
+    aprobada, responsable incorrecto rechazado, marcas anidadas false
+    admitidas, marca desconocida true rechazada, marca sensible true
+    rechazada y etiqueta adicional rechazada.
+  - El caso incorrecto produjo el rechazo esperado:
+  POLITICA RECHAZADA: responsable no aprobado para integracion
+
+La guia solicita tres ejecuciones de GitHub Actions (aprobada, rechazo
+deliberado, correccion), enlaces a ellas y un pull request en un repositorio
+personal. Se publicaron los cambios en la rama personal y las tres
+ejecuciones principales del workflow de este ejercicio fueron:
+  Inicial aprobada:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729661219
+    formato, validacion, ambos planes y ambas politicas pasaron.
+  Responsable de integracion incorrecto:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729777199
+    formato, validacion y ambos planes pasaron; la politica de integracion
+    rechazo el responsable con el mensaje esperado.
+  Correccion:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44729835861
+    formato, validacion, ambos planes y ambas politicas pasaron.
+Ejecucion adicional al documentar README y evidencia:
+  Actualizacion de README y trazabilidad:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44730151303
+    formato, validacion, ambos planes y ambas politicas pasaron.
+Ejecucion adicional al actualizar la trazabilidad:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44730291168
+  formato, validacion, ambos planes y ambas politicas pasaron.
+
+En las dos ejecuciones aprobadas, cada plan mostro dos recursos a crear y
+cero cambios o eliminaciones. La ejecucion de rechazo mostro que el error
+estaba en la politica de integracion y no en tofu validate ni en el plan.
+OpenTofu/Terraform no esta instalado en PATH, por lo que las comprobaciones
+locales se limitaron a Python; los comandos de OpenTofu se ejecutaron en
+GitHub Actions.
+
+Hitos publicados antes de esta actualizacion de estado:
+  b020f24 - implementacion inicial; validacion verde.
+  c0a618e - prueba temporal con equipo-lab; politica de integracion roja.
+  94b937c - correccion con equipo-integracion; validacion verde.
+  e0f0c21 - README, decision de diseno y enlaces de evidencia.
+  535d94f - primera actualizacion de trazabilidad.
+
+4. ENTREGA EN GITHUB
+--------------------
+Rama:
+  https://github.com/thesharkgt/curso-iac/tree/taller-final-ejercicio-8
+Pull request:
+  https://github.com/thesharkgt/curso-iac/pull/2
+  Abierto, sin fusionar; base catalogo-ejercicio-7 y rama
+  taller-final-ejercicio-8. La pagina muestra 11 archivos y 5 commits antes
+  de esta actualizacion, y 4/4 comprobaciones aprobadas.
+  El PR no esta en modo borrador: se intento «Convert to draft», pero la
+  interfaz siguio mostrando el PR como abierto y la opcion para convertirlo.
+  La descripcion esta vacia («No description provided»); no se ha editado.
+
+5. LIMITES
+----------
+El mapa etiquetas se guarda en terraform_data; no son etiquetas reales de
+servicios cloud. No se ejecuta tofu apply ni se despliega infraestructura.
+La politica editable en la misma rama es didactica y no equivale a una
+aprobacion independiente de produccion.
+
+FIN DE LA TRAZABILIDAD
