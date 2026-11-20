@@ -1,0 +1,146 @@
+TRAZABILIDAD - EJERCICIO 7: CATALOGO CON FOR_EACH Y POLITICA
+============================================================
+
+Fecha de preparacion: 20/11/2026
+Carpeta: C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\curso-iac\ejercicio 7
+Guia de entrada: C:\Users\arquevedo\OneDrive - SELAE\Documentos\Curso IaC\Guia_Ejercicio_7_IaC_IA_BRR.docx
+Rama local: catalogo-ejercicio-7
+Rama de partida: politica-ejercicio-6
+
+1. ALCANCE Y PUBLICACION
+------------------------
+Se preparo un proyecto autocontenido en la carpeta nueva "ejercicio 7".
+La base de modulo, variables y escenarios procede de ejercicio-5-local; la
+politica se ajusta a las direcciones y reglas descritas por las guias 6 y 7.
+No se modificaron los archivos existentes de ejercicio-5-local ni el workflow
+ya configurado para ese ejercicio.
+
+Por indicacion expresa del usuario, el remoto elegido fue
+https://github.com/thesharkgt/curso-iac.git y la rama base
+politica-ejercicio-6. Se publico catalogo-ejercicio-7 con tres commits:
+  2b40a1434a63bec693a65065e2f3571359cd4a9a - baseline de dos fichas
+  48ae16002462530cffe383820315cbf830b9534b - prueba con informes
+  68bd55808d92b5b6374688ea9e4e79f08808a8d8 - correccion a dos fichas
+
+No se modifico la rama base. El pull request y el commit de documentacion
+quedan pendientes de completar en los pasos siguientes.
+
+La carpeta ejercicio-6-local de este clon solo contiene
+trazabilidad_ejercicio_6.txt; no contiene main.tf, outputs.tf ni
+politica_plan.py. Se reutilizo el modulo del ejercicio 5 y se contrastaron
+sus reglas con la trazabilidad del ejercicio 6 y la guia adjunta. El resultado
+es una continuacion coherente de esas reglas, no una copia literal del codigo
+que no esta presente en ejercicio-6-local.
+
+2. CAMBIOS REALIZADOS
+---------------------
+Archivos nuevos en esta carpeta:
+  main.tf
+    Mapa local catalogo con portal y ayuda; un unico modulo usa for_each.
+  outputs.tf
+    La salida resumen conserva las claves y los resúmenes de cada instancia.
+  politica_plan.py
+    Acepta exactamente las dos direcciones nuevas y mantiene las reglas de
+    tipo, accion, entradas, sensibilidad, nombres y entornos del ejercicio 6.
+    El mensaje al recibir tres recursos identifica las fichas portal y ayuda.
+  README.md
+    Explica catalogo, for_each, salida, escenarios, limite y verificaciones.
+  variables.tf
+  escenario-integracion.tfvars
+  modulo_ficha\main.tf
+  modulo_ficha\variables.tf
+  modulo_ficha\outputs.tf
+    Copiados como base del ejercicio 5 para que el proyecto sea autocontenido.
+
+Se agrego por separado en la raiz del repositorio:
+  .github\workflows\validacion-ejercicio-7.yml
+El workflow valida esta carpeta sin cambiar el workflow preexistente del
+ejercicio 5. GitHub Actions lo ejecuto en la rama publicada.
+
+3. EJECUCIONES REALES Y RESULTADOS
+----------------------------------
+Plan predeterminado:
+  module.fichas["portal"].terraform_data.ficha
+  module.fichas["ayuda"].terraform_data.ficha
+  portal-demo / pruebas y portal-ayuda / pruebas
+  Plan: 2 to add, 0 to change, 0 to destroy
+  Politica aprobada.
+  Commit: 2b40a1434a63bec693a65065e2f3571359cd4a9a
+  Actions verde: https://github.com/thesharkgt/curso-iac/actions/runs/44708809085
+
+Plan de integracion:
+  portal-interno / integracion y portal-ayuda / integracion
+  Plan: 2 to add, 0 to change, 0 to destroy. Politica aprobada en la ejecucion
+  verde inicial y en la correccion.
+
+Ensayo de gobierno:
+  Al añadir catalogo.informes = "portal-informes", se planifican tres
+  instancias y la politica rechaza el JSON con
+  "POLITICA RECHAZADA: se esperan exactamente las fichas portal y ayuda".
+  Primer paso fallido: Politica del plan predeterminado. Formato, validacion
+  y plan predeterminado pasaron; el plan mostro module.fichas["informes"].
+  Las comprobaciones posteriores de integracion se omitieron; el resumen y el
+  artefacto se publicaron.
+  Commit: 48ae16002462530cffe383820315cbf830b9534b
+  Actions roja esperada:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44708979455
+  Log del paso rojo: https://github.com/thesharkgt/curso-iac/actions/runs/44708979455/job/136195542546
+
+Correccion:
+  Se retiro informes y se restauraron las dos entradas del catalogo.
+  Formato, validacion, ambos planes y ambas politicas pasaron.
+  Commit: 68bd55808d92b5b6374688ea9e4e79f08808a8d8
+  Actions verde:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44709241053
+
+El workflow publico evidencia.txt como artefacto durante siete dias. No se
+ejecuto apply.
+
+4. VALIDACION Y REVISION
+------------------------
+Comprobaciones observables:
+  - Se verifico el contenido de la guia adjunta en Word y su texto completo.
+  - Se inspeccionaron los archivos del modulo y la politica de ejercicio 5.
+  - Se inspecciono la trazabilidad del ejercicio 6 y el workflow de la raiz.
+  - Se confirmo la rama de partida politica-ejercicio-6 y el remoto origin.
+  - Se creo la rama local catalogo-ejercicio-7.
+  - Pylance ejecuto ast.parse sobre politica_plan.py con Python 3.15:
+    sintaxis Python correcta.
+  - Con el interprete seleccionado por Pylance se ejecutaron cinco casos
+    controlados de la politica: default aprobado, integracion aprobada,
+    tercera ficha rechazada con el mensaje esperado, nombre de ayuda incorrecto
+    rechazado y entornos distintos rechazados. Los cinco pasaron.
+
+Pendiente en este equipo:
+  - tofu/terraform no estan disponibles en PATH.
+  - El comando python no esta disponible en PATH; se uso el interprete
+    seleccionado por VS Code/Pylance para la comprobacion sintactica y los
+    cinco casos de la politica.
+  - No se ejecutaron localmente tofu fmt, init, validate ni plan; el workflow
+    los ejecuto en GitHub Actions y sus resultados constan en la seccion 3.
+  - La ejecucion de documentacion y el pull request quedan pendientes.
+
+Revision asistida por IA:
+  Se contrasto que for_each produce una instancia por clave, que las
+  direcciones nuevas coinciden con la politica y que una tercera clave
+  permanece fuera del conjunto aprobado. Actions confirmo el rechazo esperado.
+  La limitacion comprobada/documentada es didactica: terraform_data y planes
+  efimeros no despliegan infraestructura ni prueban gobierno de produccion.
+
+Prediccion verificada: los dos escenarios con dos fichas pasan; informes
+produce tres recursos en el plan pero la politica los rechaza. La evidencia
+se observo en los logs de la rama y no se dedujo solo de la respuesta de IA.
+
+5. LIMITACIONES
+---------------
+La politica es didactica y editable en la rama; no sustituye revision humana,
+proteccion de rama ni controles de produccion. Cambiar direcciones de recursos
+en un proyecto con estado real puede requerir migrar estado. En este ejercicio
+solo se calculan planes efimeros de terraform_data, sin apply ni despliegue.
+
+6. ENTREGA
+-----------
+Pull request: pendiente.
+Ejecucion de Actions del commit de README y trazabilidad: pendiente.
+
+FIN DE LA TRAZABILIDAD
