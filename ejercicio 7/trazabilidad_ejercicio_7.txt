@@ -22,8 +22,12 @@ politica-ejercicio-6. Se publico catalogo-ejercicio-7 con tres commits:
   48ae16002462530cffe383820315cbf830b9534b - prueba con informes
   68bd55808d92b5b6374688ea9e4e79f08808a8d8 - correccion a dos fichas
 
-No se modifico la rama base. El pull request y el commit de documentacion
-quedan pendientes de completar en los pasos siguientes.
+No se modifico la rama base. El pull request #1 se abrio en
+https://github.com/thesharkgt/curso-iac/pull/1 desde catalogo-ejercicio-7
+hacia politica-ejercicio-6. Esta abierto, no fusionado y contiene cinco
+commits. La comprobacion de GitHub reporto draft:false. La conversion a
+borrador se intento desde la interfaz, pero el estado no cambio; queda
+pendiente completar esa conversion.
 
 La carpeta ejercicio-6-local de este clon solo contiene
 trazabilidad_ejercicio_6.txt; no contiene main.tf, outputs.tf ni
@@ -120,8 +124,13 @@ Pendiente en este equipo:
     los ejecuto en GitHub Actions y sus resultados constan en la seccion 3.
   - El commit de documentacion paso el workflow:
     https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
-  - El pull request sigue pendiente porque GitHub solicita iniciar sesion en
-    el navegador; no se enviaron credenciales ni se creo un PR sin autenticar.
+  - El PR #1 esta abierto, no fusionado y con estado de fusion limpio
+    (mergeable_state=clean). GitHub reporto draft:false.
+  - Los dos checks actuales del PR terminaron correctamente:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44712939897
+    https://github.com/thesharkgt/curso-iac/actions/runs/44712939788
+  - La conversion a borrador se intento en la interfaz, pero GitHub siguio
+    reportando draft:false; no se considero completada.
 
 Revision asistida por IA:
   Se contrasto que for_each produce una instancia por clave, que las
@@ -146,7 +155,8 @@ solo se calculan planes efimeros de terraform_data, sin apply ni despliegue.
 Commit README y trazabilidad:
   43f3af00eb863c73c5a3cc6ada51c5e8f23e3152
   Actions verde: https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
-Pull request a politica-ejercicio-6: pendiente de iniciar sesion en GitHub
-desde el navegador y enviar la propuesta como borrador.
+Pull request a politica-ejercicio-6:
+  https://github.com/thesharkgt/curso-iac/pull/1
+  Abierto, no fusionado; draft:false (conversion a borrador pendiente).
 
 FIN DE LA TRAZABILIDAD
