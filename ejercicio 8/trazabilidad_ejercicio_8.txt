@@ -68,7 +68,7 @@ Comprobaciones ejecutadas sobre politica_plan.py:
 
 La guia solicita tres ejecuciones de GitHub Actions (aprobada, rechazo
 deliberado, correccion), enlaces a ellas y un pull request en un repositorio
-personal. Se publicaron cuatro commits en la rama personal y las tres
+personal. Se publicaron los cambios en la rama personal y las tres
 ejecuciones principales del workflow de este ejercicio fueron:
   Inicial aprobada:
     https://github.com/thesharkgt/curso-iac/actions/runs/44729661219
@@ -84,6 +84,9 @@ Ejecucion adicional al documentar README y evidencia:
   Actualizacion de README y trazabilidad:
     https://github.com/thesharkgt/curso-iac/actions/runs/44730151303
     formato, validacion, ambos planes y ambas politicas pasaron.
+Ejecucion adicional al actualizar la trazabilidad:
+  https://github.com/thesharkgt/curso-iac/actions/runs/44730291168
+  formato, validacion, ambos planes y ambas politicas pasaron.
 
 En las dos ejecuciones aprobadas, cada plan mostro dos recursos a crear y
 cero cambios o eliminaciones. La ejecucion de rechazo mostro que el error
@@ -92,27 +95,27 @@ OpenTofu/Terraform no esta instalado en PATH, por lo que las comprobaciones
 locales se limitaron a Python; los comandos de OpenTofu se ejecutaron en
 GitHub Actions.
 
-Commits publicados:
+Hitos publicados antes de esta actualizacion de estado:
   b020f24 - implementacion inicial; validacion verde.
   c0a618e - prueba temporal con equipo-lab; politica de integracion roja.
   94b937c - correccion con equipo-integracion; validacion verde.
   e0f0c21 - README, decision de diseno y enlaces de evidencia.
+  535d94f - primera actualizacion de trazabilidad.
 
 4. ENTREGA EN GITHUB
 --------------------
 Rama:
   https://github.com/thesharkgt/curso-iac/tree/taller-final-ejercicio-8
 Pull request:
-  Pendiente de crear hacia catalogo-ejercicio-7 en modo borrador, sin fusionar.
+  https://github.com/thesharkgt/curso-iac/pull/2
+  Abierto, sin fusionar; base catalogo-ejercicio-7 y rama
+  taller-final-ejercicio-8. La pagina muestra 11 archivos y 5 commits antes
+  de esta actualizacion, y 4/4 comprobaciones aprobadas.
+  El PR no esta en modo borrador: se intento «Convert to draft», pero la
+  interfaz siguio mostrando el PR como abierto y la opcion para convertirlo.
+  La descripcion esta vacia («No description provided»); no se ha editado.
 
 5. LIMITES
-----------
-El mapa etiquetas se guarda en terraform_data; no son etiquetas reales de
-servicios cloud. No se ejecuta tofu apply ni se despliega infraestructura.
-La politica editable en la misma rama es didactica y no equivale a una
-aprobacion independiente de produccion.
-
-4. LIMITES
 ----------
 El mapa etiquetas se guarda en terraform_data; no son etiquetas reales de
 servicios cloud. No se ejecuta tofu apply ni se despliega infraestructura.
