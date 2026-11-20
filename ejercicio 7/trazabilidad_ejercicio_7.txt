@@ -118,7 +118,10 @@ Pendiente en este equipo:
     cinco casos de la politica.
   - No se ejecutaron localmente tofu fmt, init, validate ni plan; el workflow
     los ejecuto en GitHub Actions y sus resultados constan en la seccion 3.
-  - La ejecucion de documentacion y el pull request quedan pendientes.
+  - El commit de documentacion paso el workflow:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
+  - El pull request sigue pendiente porque GitHub solicita iniciar sesion en
+    el navegador; no se enviaron credenciales ni se creo un PR sin autenticar.
 
 Revision asistida por IA:
   Se contrasto que for_each produce una instancia por clave, que las
@@ -140,7 +143,10 @@ solo se calculan planes efimeros de terraform_data, sin apply ni despliegue.
 
 6. ENTREGA
 -----------
-Pull request: pendiente.
-Ejecucion de Actions del commit de README y trazabilidad: pendiente.
+Commit README y trazabilidad:
+  43f3af00eb863c73c5a3cc6ada51c5e8f23e3152
+  Actions verde: https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
+Pull request a politica-ejercicio-6: pendiente de iniciar sesion en GitHub
+desde el navegador y enviar la propuesta como borrador.
 
 FIN DE LA TRAZABILIDAD
