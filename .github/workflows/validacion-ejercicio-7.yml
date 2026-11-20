@@ -1,0 +1,78 @@
+name: Validacion IaC - ejercicio 7
+
+on:
+  push:
+    paths:
+      - "ejercicio 7/**"
+      - ".github/workflows/validacion-ejercicio-7.yml"
+  pull_request:
+    paths:
+      - "ejercicio 7/**"
+      - ".github/workflows/validacion-ejercicio-7.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "ejercicio 7"
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v7
+      - name: Instalar OpenTofu
+        uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: 1.13.9
+          tofu_wrapper: false
+      - name: Inicializar
+        run: tofu init -backend=false -input=false
+      - name: Comprobar formato
+        id: formato
+        run: tofu fmt -check -diff -recursive
+      - name: Validar
+        id: validar
+        run: tofu validate -no-color
+      - name: Plan con valores por defecto
+        id: plan_predeterminado
+        run: tofu plan -input=false -no-color -out=plan-predeterminado.tfplan
+      - name: Politica del plan predeterminado
+        id: politica_predeterminado
+        run: tofu show -json -plan=plan-predeterminado.tfplan | python3 politica_plan.py
+      - name: Plan del escenario integracion
+        id: plan_integracion
+        run: >-
+          tofu plan -input=false -no-color
+          -var-file=escenario-integracion.tfvars
+          -out=plan-integracion.tfplan
+      - name: Politica del plan de integracion
+        id: politica_integracion
+        run: tofu show -json -plan=plan-integracion.tfplan | python3 politica_plan.py
+      - name: Resumir comprobaciones
+        if: ${{ always() }}
+        run: |
+          {
+            echo "## Resultados del ejercicio 7"
+            echo ""
+            echo "Commit analizado: $GITHUB_SHA"
+            echo ""
+            echo "| Comprobación | Resultado |"
+            echo "| --- | --- |"
+            echo "| Formato | ${{ steps.formato.outcome }} |"
+            echo "| Validación | ${{ steps.validar.outcome }} |"
+            echo "| Plan predeterminado | ${{ steps.plan_predeterminado.outcome }} |"
+            echo "| Política predeterminada | ${{ steps.politica_predeterminado.outcome }} |"
+            echo "| Plan de integración | ${{ steps.plan_integracion.outcome }} |"
+            echo "| Política de integración | ${{ steps.politica_integracion.outcome }} |"
+          } | tee evidencia.txt >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar evidencia
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidencia-ejercicio-7-${{ github.run_id }}-${{ github.run_attempt }}
+          path: "ejercicio 7/evidencia.txt"
+          if-no-files-found: error
+          retention-days: 7
