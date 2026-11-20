@@ -24,9 +24,10 @@ politica-ejercicio-6. Se publico catalogo-ejercicio-7 con tres commits:
 
 No se modifico la rama base. El pull request #1 se abrio en
 https://github.com/thesharkgt/curso-iac/pull/1 desde catalogo-ejercicio-7
-hacia politica-ejercicio-6. Esta abierto y no fusionado. La comprobacion de
-GitHub reporto draft:false. La conversion a borrador se intento desde la
-interfaz, pero el estado no cambio; queda pendiente completar esa conversion.
+hacia politica-ejercicio-6. Esta abierto, no fusionado y en borrador
+(draft:true), confirmado por GitHub. La descripcion del PR incluye el resumen,
+la prediccion y comprobacion, las tres ejecuciones de Actions, la revision
+asistida por IA y el alcance sin apply.
 
 La carpeta ejercicio-6-local de este clon solo contiene
 trazabilidad_ejercicio_6.txt; no contiene main.tf, outputs.tf ni
@@ -123,14 +124,19 @@ Pendiente en este equipo:
     los ejecuto en GitHub Actions y sus resultados constan en la seccion 3.
   - El commit de documentacion paso el workflow:
     https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
-  - El PR #1 esta abierto, no fusionado y con estado de fusion limpio
-    (mergeable_state=clean). GitHub reporto draft:false.
-  - Para el commit bcc3883 de esta trazabilidad, push y PR Actions terminaron
+  - El PR #1 esta abierto, no fusionado, en borrador (draft:true) y con estado
+    de fusion limpio (mergeable_state=clean). Los cuatro checks actuales
+    terminaron correctamente.
+  - La descripcion del PR se guardo y GitHub devuelve el contenido completo,
+    incluidos los enlaces de las ejecuciones verde inicial, roja esperada y
+    verde corregida.
+  - Para el commit 625c9b8 de esta trazabilidad, push y PR Actions terminaron
     correctamente:
-    https://github.com/thesharkgt/curso-iac/actions/runs/44713961652
-    https://github.com/thesharkgt/curso-iac/actions/runs/44713969513
-  - La conversion a borrador se intento en la interfaz, pero GitHub siguio
-    reportando draft:false; no se considero completada.
+    Push: https://github.com/thesharkgt/curso-iac/actions/runs/44714195568
+    https://github.com/thesharkgt/curso-iac/actions/runs/44714195609
+    PR: https://github.com/thesharkgt/curso-iac/actions/runs/44714203048
+    https://github.com/thesharkgt/curso-iac/actions/runs/44714203093
+  - La conversion del PR a borrador se completo en GitHub. No se fusiono.
 
 Revision asistida por IA:
   Se contrasto que for_each produce una instancia por clave, que las
@@ -157,6 +163,11 @@ Commit README y trazabilidad:
   Actions verde: https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
 Pull request a politica-ejercicio-6:
   https://github.com/thesharkgt/curso-iac/pull/1
-  Abierto, no fusionado; draft:false (conversion a borrador pendiente).
+  Abierto, no fusionado; draft:true; mergeable_state=clean; cuatro checks
+  satisfactorios. Descripcion publicada y verificada por GitHub.
+Ultimo commit verificado antes de esta actualizacion de trazabilidad:
+  625c9b8dcbfc18a8b86dfc1779bda680fdfe18bc
+  Push y PR Actions verdes: 44714195568, 44714195609, 44714203048,
+  44714203093.
 
 FIN DE LA TRAZABILIDAD
