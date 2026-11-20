@@ -24,10 +24,9 @@ politica-ejercicio-6. Se publico catalogo-ejercicio-7 con tres commits:
 
 No se modifico la rama base. El pull request #1 se abrio en
 https://github.com/thesharkgt/curso-iac/pull/1 desde catalogo-ejercicio-7
-hacia politica-ejercicio-6. Esta abierto, no fusionado y contiene cinco
-commits. La comprobacion de GitHub reporto draft:false. La conversion a
-borrador se intento desde la interfaz, pero el estado no cambio; queda
-pendiente completar esa conversion.
+hacia politica-ejercicio-6. Esta abierto y no fusionado. La comprobacion de
+GitHub reporto draft:false. La conversion a borrador se intento desde la
+interfaz, pero el estado no cambio; queda pendiente completar esa conversion.
 
 La carpeta ejercicio-6-local de este clon solo contiene
 trazabilidad_ejercicio_6.txt; no contiene main.tf, outputs.tf ni
@@ -126,9 +125,10 @@ Pendiente en este equipo:
     https://github.com/thesharkgt/curso-iac/actions/runs/44709506924
   - El PR #1 esta abierto, no fusionado y con estado de fusion limpio
     (mergeable_state=clean). GitHub reporto draft:false.
-  - Los dos checks actuales del PR terminaron correctamente:
-    https://github.com/thesharkgt/curso-iac/actions/runs/44712939897
-    https://github.com/thesharkgt/curso-iac/actions/runs/44712939788
+  - Para el commit bcc3883 de esta trazabilidad, push y PR Actions terminaron
+    correctamente:
+    https://github.com/thesharkgt/curso-iac/actions/runs/44713961652
+    https://github.com/thesharkgt/curso-iac/actions/runs/44713969513
   - La conversion a borrador se intento en la interfaz, pero GitHub siguio
     reportando draft:false; no se considero completada.
 
